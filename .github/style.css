@@ -1,0 +1,44 @@
+h1 {
+  text-align: center;
+  color: lightgreen;
+  text-decoration-line: underline;
+  text-shadow: 5px 5px 5px rgb(117, 117, 117);
+}
+
+li.menu {
+  text-align: center;
+  list-style: none;
+  background-color: lightgreen;
+}
+li.newest {
+  text-align: center;
+  list-style: none;
+}
+a.menu {
+  text-decoration-line: none;
+  color: white;
+  font-size: 20px;
+  display: inline-block;
+  padding: 14px 25px;
+  text-shadow: 2px 2px 5px black;
+}
+a.newest {
+  font-size: 20px;
+  text-decoration-line: none;
+}
+a:hover.newest {
+  text-decoration-line: underline;
+}
+a:hover.menu {
+  text-decoration-line: underline;
+  padding: 14px 25px;
+}
+button {
+  padding: 10px 20px;
+  background: lightgreen;
+  color: white; 
+}
+button:hover {
+  box-shadow: 2px 2px 10px black;;
+  text-decoration-line: underline;
+}
