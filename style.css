@@ -23,7 +23,7 @@ a.menu {
   text-shadow: 2px 2px 5px black;
 }
 a.newest {
-  font-size: 20px;
+  font-size: 50px;
   text-decoration-line: none;
 }
 a:hover.newest {
@@ -36,7 +36,7 @@ a:hover.menu {
 button {
   padding: 10px 20px;
   background: lightgreen;
-  color: white; 
+  color: white;
 }
 button:hover {
   box-shadow: 2px 2px 10px black;;
