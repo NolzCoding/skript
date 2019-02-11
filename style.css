@@ -8,15 +8,18 @@ body {
 
 h1 {
   text-align: center;
-  color: lightgreen;
-  text-decoration-line: underline;
-  text-shadow: 5px 5px 5px rgb(117, 117, 117);
+  color: white;
+  padding: 1px 10px;
+  outline: #324e32;
+  outline-style: ridge;
 }
 
 li.menu {
   text-align: center;
   list-style: none;
-  background-color: lightgreen;
+  outline:  2px;
+  outline-width: 5px 5px;
+  outline-style: auto;
 }
 li.newest {
   text-align: center;
