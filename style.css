@@ -4,15 +4,14 @@ body {
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  
 }
 
 h1 {
   text-align: center;
   color: white;
   padding: 1px 10px;
-  outline: #324e32;
-  outline-style: ridge;
+  font-size: 45px;
+  text-shadow: 4px 4px 5px black;
 }
 
 li.menu {
@@ -29,7 +28,7 @@ li.newest {
 a.menu {
   text-decoration-line: none;
   color: white;
-  font-size: 20px;
+  font-size: 25px;
   display: inline-block;
   padding: 14px 25px;
   text-shadow: 2px 2px 5px black;
