@@ -1,3 +1,7 @@
+body {
+  background-image: linear-gradient(to bottom, #171d27, #122a34, #0a373b, #174339, #324e32);
+}
+
 h1 {
   text-align: center;
   color: lightgreen;
