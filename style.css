@@ -60,6 +60,13 @@ a:hover.sk {
 	background-color: black;
 	font-size: 20px;
 }
+image {
+	vertical-align: center;
+}
+div {
+	position: fixed;
+	left: 25%;
+}
 
 
 

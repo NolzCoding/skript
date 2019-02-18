@@ -1,0 +1,21 @@
+#Skript Made by Nolz_Mc
+#You can use this skript on't take credit for it!
+
+command /warn <player> <text>:
+   permission: staff.warn
+   trigger:
+      if {warns.%uuid of player arg%} is not set:
+         set {warns.%uuid of player arg%} to 1
+         broadcast "&8[&aStaff&8] &a%player arg% got warned by %player% for %arg 2%"
+      else:
+         broadcast "&8[&aStaff&8] &a%player arg% got warned by %player% for %arg 2%"
+         add 1 to {warns.%uuid of player arg%}
+         if {warns.%uuid of player arg%} == 3:
+            kick the player due to "&aYou have been warned 3 times"
+
+command /resetwarn <player>:
+   permission: staff.resetwarn
+   trigger:
+      set {warns.%uuid of player arg%} to 0
+      message "&aYou reset %player arg%'s warns"
+      message "&a%player% reset your warns" to player arg
