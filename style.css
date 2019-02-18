@@ -32,6 +32,7 @@ a.menu {
   display: inline-block;
   padding: 14px 25px;
   text-shadow: 2px 2px 5px black;
+  transition: text-decoration-line 1s;
 }
 a.newest {
   font-size: 50px;
