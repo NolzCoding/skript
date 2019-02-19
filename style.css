@@ -24,8 +24,18 @@ li.newest {
   text-align: center;
   list-style: none;
 }
+a.active {
+  text-align: center;
+  text-decoration-line: none;
+  color: white;
+  font-size: 30px;
+  display: inline-block;
+  padding: 14px 25px;
+  text-shadow: 2px 2px 5px black;
+  transition: all 1s;
+}
 a.menu {
-	text-align: center;
+  text-align: center;
   text-decoration-line: none;
   color: white;
   font-size: 25px;
@@ -40,6 +50,12 @@ a.newest {
 }
 a:hover.newest {
   text-decoration-line: underline;
+}
+a:hover.active {
+  text-decoration-line: underline;
+  padding: 14px 25px;
+  font-size: 35px;
+  background-color: black;
 }
 a:hover.menu {
   text-decoration-line: underline;
