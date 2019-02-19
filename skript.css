@@ -57,8 +57,47 @@ a.sk {
 	transition: all 1s;
 }
 a:hover.sk {
-	background-color: black;
-	font-size: 20px;
+	color: black;
+}
+a.active {
+  text-align: center;
+  text-decoration-line: none;
+  color: white;
+  font-size: 30px;
+  display: inline-block;
+  padding: 14px 25px;
+  text-shadow: 2px 2px 5px black;
+  background-color: #00001a;
+  transition: all 1s;
+}
+a:hover.active {
+  text-decoration-line: underline;
+  padding: 14px 25px;
+  font-size: 35px;
+  background-color: black;
+}
+a.warn {
+  text-decoration-line: none;
+}
+p.warn {
+  font-size: 80px;
+  background: -webkit-linear-gradient(white, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+div.center {
+  position: fixed;
+  top: 24%;
+  left: 42%;
+}
+div.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #194d33;
+  color: white;
+  text-align: center;
 }
 
 

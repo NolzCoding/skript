@@ -81,7 +81,8 @@ image {
 }
 div.center {
 	position: fixed;
-	left: 25%;
+  top: 24%;
+	left: 42%;
 }
 div.footer {
 	position: fixed;
@@ -91,6 +92,15 @@ div.footer {
   background-color: #194d33;
   color: white;
   text-align: center;
+}
+a.warn {
+  text-decoration-line: none;
+}
+p.warn {
+  font-size: 80px;
+  background: -webkit-linear-gradient(white, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 
