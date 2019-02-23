@@ -101,6 +101,23 @@ p.warn {
   background: -webkit-linear-gradient(white, red);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  transition: all 1s;
+}
+p.warn:hover {
+  background: -webkit-linear-gradient(red, white);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;}
+p.cs {
+  font-size: 80px;
+  background: -webkit-linear-gradient(white, green);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+p.cs:hover {
+  font-size: 80px;
+  background: -webkit-linear-gradient(green, white);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 

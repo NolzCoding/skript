@@ -1,0 +1,288 @@
+#Skript made by Nolz_Mc
+#Don't credit this skript as your own!
+
+variables:
+   {gametime} = 0
+   {gameison} = false
+   {redkills} = 0
+   {bluekills} = 0
+function endgame(winner: string):
+   if {_winner} is "red":
+      broadcast "&a&lGame has ended winner &c&lRed"
+      execute console command "/restart"
+   else if {_winner} is "blue":
+      broadcast "&a&lGame has ended winner &9&lBlue"
+      execute console command "/restart"
+   else if {_winner} is "time":
+      if {redkills} > {bluekills}:
+         broadcast "&a&lGame has ended winner &c&lRed"
+         execute console command "/restart"
+      else:
+         broadcast "&a&lGame has ended winner &9&lBlue"
+         execute console command "/restart"
+   exit
+
+
+
+function blue(p: player):
+   clear {_p}'s inventory
+   set helmet of {_p} to leather helmet
+   set chestplate of {_p} to leather chestplate
+   set leggings of {_p} to leather leggings
+   set boots of {_p} to leather boots
+   dye {_p}'s helmet blue
+   dye {_p}'s leggings blue
+   dye {_p}'s chestplate blue
+   dye {_p}'s boots blue
+   give wooden pickaxe named "&6Glock" to {_p}
+   set slot 8 of {_p}'s inventory to chest named "&aShop"
+
+function red(p: player):
+   clear {_p}'s inventory
+   set helmet of {_p} to leather helmet
+   set chestplate of {_p} to leather chestplate
+   set leggings of {_p} to leather leggings
+   set boots of {_p} to leather boots
+   dye {_p}'s helmet red
+   dye {_p}'s leggings red
+   dye {_p}'s chestplate red
+   dye {_p}'s boots red
+   give wooden pickaxe named "&6Glock" to {_p}
+   set slot 8 of {_p}'s inventory to chest named "&aShop"
+
+function gun(p: player) :: string:
+   if {_p}'s tool is wooden pickaxe:
+      set {_result} to "glock"
+   else if {_p}'s tool is diamond pickaxe:
+      set {_result} to "awp"
+   return {_result}
+
+function wipescore():
+   loop all players:
+      wipe loop-player's sidebar
+      set name of sidebar of loop-player to "&a&lCsGG"
+      set score "&aGame time: &e%{gametime}% s" in sidebar of loop-player to 3
+      set score "&9Blue kills: %{bluekills}%" in sidebar of loop-player to 2
+      set score "&cRed kills: %{redkills}%" in sidebar of loop-player to 1
+
+every 1 second:
+   if {gameison} is true:
+      if {gametime} is 0:
+         endgame("time")
+      else if {redkills} >= 100:
+         endgame("red")
+      else if {bluekills} >= 100:
+         endgame("blue")
+      else:
+         subtract 1 from {gametime}
+         loop all players:
+            wipescore()
+
+function glock(p: player):
+   if {magg.%{_p}%} is not set:
+      set {magg.%{_p}%} to 20
+      subtract 1 from {magg.%{_p}%}
+      set action bar of {_p} to "&7Glock %{magg.%{_p}%}%&8/&720"
+   else if {magg.%{_p}%} == 0:
+      play sound "Minecraft:block.note.hat" with volume 10 with pitch 1 at {_p} for {_p}
+      exit
+   else:
+      subtract 1 from {magg.%{_p}%}
+      set action bar of {_p} to "&7Glock %{magg.%{_p}%}%&8/&720"
+   make {_p} shoot a snowball
+   play sound "minecraft:entity.firework.blast" with volume 10 with pitch 1 at {_p} for {_p}
+   play sound "minecraft:entity.blaze.hurt" with volume 10 with pitch 1 at {_p} for {_p}
+
+function awp(p: player):
+   set {_waited} to difference between {awp.%{_p}%.lastused} and now
+   if {_waited} is less than 3 seconds:
+      stop
+   if {maga.%{_p}%} is not set:
+      set {maga.%{_p}%} to 10
+      subtract 1 from {maga.%{_p}%}
+      set action bar of {_p} to "&7Awp %{maga.%{_p}%}%&8/&710"
+   else if {maga.%{_p}%} == 0:
+      play sound "Minecraft:block.note.hat" with volume 10 with pitch 1 at {_p} for {_p}
+      exit
+   else:
+      subtract 1 from {maga.%{_p}%}
+      set action bar of {_p} to "&7Awp %{maga.%{_p}%}%&8/&710"
+   make {_p} shoot a snowball at speed 5
+   play sound "minecraft:entity.firework.blast" with volume 10 with pitch 1 at {_p} for {_p}
+   play sound "minecraft:entity.armorstand.break" with volume 10 with pitch 1 at {_p} for {_p}
+   set {awp.%{_p}%.lastused} to now
+
+
+
+
+on drop:
+   if event-item is a wooden pickaxe:
+      cancel event
+      set action bar of player to "&cReloading..."
+      wait 3 seconds
+      set {magg.%player%} to 20
+   else if event-item is a diamond pickaxe:
+      cancel event
+      set action bar of player to "&cReloading..."
+      wait 5 seconds
+      set {maga.%player%} to 10
+
+on join:
+   if {team.%player%} is not set:
+      set {team.%player%} to "none"
+
+on right click holding a pickaxe:
+   if event-item is a wooden pickaxe:
+      glock(player)
+   if event-item is a diamond pickaxe:
+      awp(player)
+
+on right click with a chest:
+   if name of event-item is "&aShop":
+      create a gui with virtual chest with 4 rows named "&aShop":
+         play sound "minecraft:block.note.pling" with volume 10 with pitch 1 at player for player
+         loop 36 times:
+            make next gui slot with gray stained glass named "&r"
+         make gui slot 4 with diamond pickaxe named "&2Awp":
+            give a diamond pickaxe named "&aAwp" to player
+      open last gui to player
+
+on left click holding a diamond pickaxe:
+   if {zoomed.%player%} is not set:
+      set {zoomed.%player%} to true
+      apply potion of slowness of tier 6 to player for 999 days
+   else if {zoomed.%player%} is true:
+      remove slowness from player
+      set {zoomed.%player%} to false
+   else:
+      set {zoomed.%player%} to true
+      apply potion of slowness of tier 6 to player for 999 days
+
+on respawn:
+   if {gameison} is true:
+      set {magg.%player%} to 20
+      set {maga.%player%} to 10
+      if {team.%player%} is "red":
+         teleport player to {redbase}
+         red(player)
+         stop
+      else if {team.%player%} is "blue":
+         teleport player to {bluebase}
+         blue(player)
+
+on death of a player:
+   if {gameison} == true:
+      if {team.%victim%} is "red":
+         broadcast "&9%attacker% &akilled &c%victim%"
+         add 1 to {bluekills}
+         wipescore()
+         stop
+      else if {team.%victim%} is "blue":
+         broadcast "&9%attacker% &akilled &c%victim%"
+         wipescore()
+         add 1 to {redkills}
+         stop
+
+
+on damage of a player:
+   if {team.%attacker%} == {team.%victim%}:
+      cancel event
+      message "&cYou can't hit your own team" to attacker
+      stop
+   projectile exists
+   projectile is a snowball
+   if gun(attacker) == "glock":
+      make attacker damage victim by 6
+   if gun(attacker) == "awp":
+      make attacker damage victim by 20
+
+command /testing:
+   trigger:
+      message "%{team.%player%}%"
+
+command /setspawnP <text>:
+   permission: paintball.admin
+   trigger:
+      if arg 1 is "red":
+         set {redbase} to location of player
+      else if arg 1 is "blue":
+         set {bluebase} to location of player
+      else:
+         message "&cusage: /setspawnP (red or blue)"
+
+command /restart:
+   trigger:
+      delete {red::*}
+      delete {blue::*}
+      set {redkills} to 0
+      set {bluekills} to 0
+      set {gameison} to false
+      loop all players:
+         execute console command "/spawn %loop-player%"
+         set {team.%loop-player%} to "none"
+         wipe loop-player's sidebar
+
+
+command /start:
+   permission: paintball.admin
+   trigger:
+      message "&a&lStarting in &8- &c&l5"
+      wait 1 second
+      message "&a&lStarting in &8- &c&l4"
+      wait 1 second
+      message "&a&lStarting in &8- &c&l3"
+      wait 1 second
+      message "&a&lStarting in &8- &c&l2"
+      wait 1 second
+      message "&a&lStarting in &8- &c&l1"
+      wait 1 second
+      loop all players:
+         wipescore()
+         if {team.%loop-player%} is "red":
+            red(loop-player)
+            teleport loop-player to {redbase}
+         else if {team.%loop-player%} is "blue":
+            blue(loop-player)
+            teleport loop-player to {bluebase}
+      set {gameison} to true
+      set {gametime} to 500
+      message "&a&lGame has started!"
+
+command /enter:
+   trigger:
+      set {_num} to a random integer between 1 and 2
+      if {_num} is 1:
+         set {team.%player%} to "red"
+         message "&aYou joined the &cRed &aTeam"
+         if {red::*} is not set:
+            set {red::*} to player
+            if {gameison} is true:
+               teleport player to {redbase}
+               red(player)
+         else:
+            add player to {red::*}
+            if {gameison} is true:
+               teleport player to {redbase}
+               red(player)
+      else:
+         set {team.%player%} to "blue"
+         message "&aYou joined the &9Blue &aTeam"
+         if {blue::*} is not set:
+            set {blue::*} to player
+            if {gameison} is true:
+               teleport player to {bluebase}
+               blue(player)
+         else:
+            add player to {blue::*}
+            if {gameison} is true:
+               teleport player to {bluebase}
+               blue(player)
+
+command /die:
+   trigger:
+      create a gui with virtual chest with 4 rows named "TuSKe ftw":
+         loop 36 times:
+            make next gui slot with yellow stained glass named "&r"# yellow stained glass that is unstealable
+         make gui slot 4 with skull of ("Nolz_Mc" parsed as offline player) with lore "reee":
+            send "skript code directly in a gui button!"
+      open last gui to player
